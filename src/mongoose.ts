@@ -12,75 +12,59 @@ async function main() {
   const user1:  IUser = {
     "name": 'Bill',
     "email": 'bill@initech.com',
-    "avatar": 'https://i.imgur.com/dM7Thhn.png'
+    
+  };
+  const user2: IUser = {
+    name: 'Stan Lee',
+    email: 'stan@marvel.com',
+    
   };
 
-
+  const user3: IUser = {
+    name: 'Wachowski',
+    email: 'wachowski@matrix.com',
+   
+  };
 
   const movie1: IMovie = {
     "name": 'The Matrix',
-    "author": 'Wachowski',
+    "author": user3,
     "budget": 63000000
   };
-  const movie1_2: IMovie = {
+  const movie2: IMovie = {
     "name": 'X-men',
-    "author": 'Stan Lee',
+    "author": user2,
     "budget": 63000000
   }; 
-  const movie1_3: IMovie = {
+  const movie3: IMovie = {
     "name":"Jupiter Ascending",
-    "author": 'Wachowski',
+    "author": user3,
     "budget": 176000000
   };
   const newMovie= new MovieModel(movie1);
-  const newMovie2= new MovieModel(movie1_2);
-  const newMovie3= new MovieModel(movie1_3);
+  const newMovie2= new MovieModel(movie2);
+  const newMovie3= new MovieModel(movie3);
 
   try {
-    const movie2: IMovie = await newMovie.save();
-    const movie3: IMovie | null = await MovieModel.findById(movie2._id);
-    console.log("movie3",movie3);
+    const movie1_2: IMovie = await newMovie.save();
+    const movie2_2: IMovie = await newMovie2.save();
+    const movie3_3: IMovie = await newMovie3.save();
 
   } catch (error) {
     console.error("Error al guardar la película:", error);
   }
-  const movie2_2: IMovie = await newMovie2.save();
-  const movie2_3: IMovie = await newMovie3.save();
-
-
-
- 
+  
   const newUser= new UserModel(user1);
+  const newUser2= new UserModel(user2);
+  const newUser3= new UserModel(user3);
   
-  const user2: IUser = await newUser.save();
+  const user1_1: IUser = await newUser.save();
+  const user2_2: IUser = await newUser2.save();
+  const user3_3: IUser = await newUser3.save();
   
 
-  // findById devuelve un objeto usando el _id.
-  const user3: IUser | null = await UserModel.findById(user2._id);
-  console.log("user3",user3);
 
-  // findOne devuelve un objeto usando un filtro.
-  const user4: IUser | null = await UserModel.findOne({name: 'Bill'});
-  console.log("user4",user4);
-
-  // Partial<IUser> Indica que el objeto puede tener solo algunos campos de IUser.
-  // select('name email') solo devuelve name y email.
-  // lean() devuelve un objeto plano de JS en lugar de un documento de Mongoose.
-  const user5: Partial<IUser> | null  = await UserModel.findOne({ name: 'Bill' })
-    .select('name email').lean();
-  console.log("user5",user5);
-
-  try {
-    const aggregationResult = await MovieModel.aggregate([
-      { $match: { author: 'Wachowski' } },
-      { $group: { _id: '$author', totalBudget: { $sum: '$budget' } } }
-      //{ $project: { _id: 0, author: '$_id', totalBudget: 1 } }
-    ]);
-    console.log("aggregationResult", aggregationResult);
-  } catch (error) {
-    console.error("Error en la agregación:", error);
-  }
-
+  
 
   
 }
