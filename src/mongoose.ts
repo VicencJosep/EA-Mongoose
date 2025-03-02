@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { UserModel, IUser } from './user.js';
+import { MovieModel, IMovie } from './movie.js';
 
 async function main() {
   mongoose.set('strictQuery', true); // Mantiene el comportamiento actual
@@ -14,10 +15,45 @@ async function main() {
     "avatar": 'https://i.imgur.com/dM7Thhn.png'
   };
 
-  console.log("user1", user1); 
+
+
+  const movie1: IMovie = {
+    "name": 'The Matrix',
+    "author": 'Wachowski',
+    "budget": 63000000
+  };
+  const movie1_2: IMovie = {
+    "name": 'X-men',
+    "author": 'Stan Lee',
+    "budget": 63000000
+  }; 
+  const movie1_3: IMovie = {
+    "name":"Jupiter Ascending",
+    "author": 'Wachowski',
+    "budget": 176000000
+  };
+  const newMovie= new MovieModel(movie1);
+  const newMovie2= new MovieModel(movie1_2);
+  const newMovie3= new MovieModel(movie1_3);
+
+  try {
+    const movie2: IMovie = await newMovie.save();
+    const movie3: IMovie | null = await MovieModel.findById(movie2._id);
+    console.log("movie3",movie3);
+
+  } catch (error) {
+    console.error("Error al guardar la película:", error);
+  }
+  const movie2_2: IMovie = await newMovie2.save();
+  const movie2_3: IMovie = await newMovie3.save();
+
+
+
+ 
   const newUser= new UserModel(user1);
+  
   const user2: IUser = await newUser.save();
-  console.log("user2",user2);
+  
 
   // findById devuelve un objeto usando el _id.
   const user3: IUser | null = await UserModel.findById(user2._id);
@@ -33,6 +69,20 @@ async function main() {
   const user5: Partial<IUser> | null  = await UserModel.findOne({ name: 'Bill' })
     .select('name email').lean();
   console.log("user5",user5);
+
+  try {
+    const aggregationResult = await MovieModel.aggregate([
+      { $match: { author: 'Wachowski' } },
+      { $group: { _id: '$author', totalBudget: { $sum: '$budget' } } }
+      //{ $project: { _id: 0, author: '$_id', totalBudget: 1 } }
+    ]);
+    console.log("aggregationResult", aggregationResult);
+  } catch (error) {
+    console.error("Error en la agregación:", error);
+  }
+
+
+  
 }
 
 main()
