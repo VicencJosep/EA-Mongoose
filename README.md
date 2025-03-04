@@ -1,10 +1,13 @@
 # EA Node.js + TypeScript + Mongoose
 
 ##REFERENCIES
-https://www.youtube.com/watch?v=lWMemPN9t6Q
-https://www.w3schools.com/mongodb/mongodb_aggregations_intro.php
-https://www.youtube.com/watch?v=lWMemPN9t6Q
-openAI chatgpt
+- https://www.youtube.com/watch?v=lWMemPN9t6Q
+
+- https://www.w3schools.com/mongodb/mongodb_aggregations_intro.php
+  
+- https://www.youtube.com/watch?v=lWMemPN9t6Q
+  
+- openAI chatgpt
 
 ## Requisitos Previos
 
