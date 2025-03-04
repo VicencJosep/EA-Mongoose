@@ -5,7 +5,7 @@
 
 - https://www.w3schools.com/mongodb/mongodb_aggregations_intro.php
   
-- https://www.youtube.com/watch?v=lWMemPN9t6Q
+- https://www.youtube.com/watch?v=gfP3aqV38q4
   
 - openAI chatgpt
 
